@@ -1,0 +1,34 @@
+﻿@model ModulosComerciales.Models.Modulo
+
+@{
+    ViewData["Title"] = "Eliminar módulo";
+}
+
+<h1>Eliminar módulo</h1>
+
+<div class="alert alert-warning">
+    ¿Estás seguro de que deseas eliminar este módulo?
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Ubicación</dt>
+    <dd class="col-sm-9">@Model.Ubicacion</dd>
+
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+
+<form asp-action="Eliminar" method="post">
+    <input type="hidden" asp-for="ModuloId" />
+
+    <button type="submit" class="btn btn-danger">
+        Confirmar eliminación
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancelar
+    </a>
+</form>

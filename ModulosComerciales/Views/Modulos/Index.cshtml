@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ModulosComerciales.Models.Modulo>
+
+@{
+    ViewData["Title"] = "Módulos comerciales";
+}
+
+<h1>Módulos comerciales</h1>
+
+<p>
+    <a asp-action="Crear" class="btn btn-primary">
+        Registrar módulo
+    </a>
+</p>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var modulo in Model)
+        {
+            <tr>
+                <td>@modulo.Nombre</td>
+                <td>@modulo.Ubicacion</td>
+                <td>@modulo.Estado</td>
+                <td>
+                    <a asp-action="Editar"
+                       asp-route-id="@modulo.ModuloId"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <a asp-action="Eliminar"
+                       asp-route-id="@modulo.ModuloId"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

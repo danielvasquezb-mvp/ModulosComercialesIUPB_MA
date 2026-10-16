@@ -1,0 +1,46 @@
+﻿@model ModulosComerciales.Models.Modulo
+
+@{
+    ViewData["Title"] = "Editar módulo";
+}
+
+<h1>Editar módulo comercial</h1>
+
+<form asp-action="Editar"
+      asp-route-id="@Model.ModuloId"
+      method="post">
+
+    <input type="hidden" asp-for="ModuloId" />
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">
+            Nombre
+        </label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Ubicacion" class="form-label">
+            Ubicación
+        </label>
+        <input asp-for="Ubicacion" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Estado" class="form-label">
+            Estado
+        </label>
+        <select asp-for="Estado" class="form-select">
+            <option value="Abierto">Abierto</option>
+            <option value="Cerrado">Cerrado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Guardar cambios
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancelar
+    </a>
+</form>
