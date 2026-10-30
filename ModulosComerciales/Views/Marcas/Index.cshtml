@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ModulosComerciales.Models.Marca>
+
+@{
+    ViewData["Title"] = "Gestión de marcas";
+}
+
+<h1>Gestión de marcas</h1>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+@if (User.IsInRole("Administrador") ||
+    !Model.Any(m => m.UsuarioId.ToString() ==
+        User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value))
+{
+    <p>
+        <a asp-action="Crear" class="btn btn-primary">
+            Registrar marca
+        </a>
+    </p>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estudiante vendedor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var marca in Model)
+        {
+            <tr>
+                <td>@marca.Nombre</td>
+                <td>@marca.Descripcion</td>
+                <td>
+                    @marca.Usuario.Nombre @marca.Usuario.Apellido
+                </td>
+                <td>
+                    @if (User.IsInRole("Administrador") ||
+                        marca.UsuarioId.ToString() ==
+                        User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                    {
+                        <a asp-action="Editar"
+                           asp-route-id="@marca.MarcaId"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Solo consulta</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ModulosComerciales.Models.SolicitudAutorizacion>
+
+@{
+    ViewData["Title"] = "Solicitudes de autorización";
+}
+
+<h1>Solicitudes de autorización</h1>
+
+<p>
+    <a asp-action="Crear" class="btn btn-primary">
+        Nueva solicitud
+    </a>
+</p>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Módulo</th>
+            <th>Fecha de solicitud</th>
+            <th>Estado</th>
+            <th>Fecha de respuesta</th>
+            <th>Fecha de finalización</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitud in Model)
+        {
+            <tr>
+                <td>@solicitud.Marca.Nombre</td>
+                <td>@solicitud.Modulo.Nombre</td>
+                <td>@solicitud.FechaSolicitud.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@solicitud.Estado</td>
+                <td>
+                    @(solicitud.FechaRespuesta.HasValue
+                        ? solicitud.FechaRespuesta.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                        : "—")
+                </td>
+                <td>
+                    @(solicitud.FechaFinalizacion.HasValue
+                        ? solicitud.FechaFinalizacion.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                        : "—")
+                </td>
+                <td>
+                    @if (solicitud.Estado == "Pendiente")
+                    {
+                        <form asp-action="Aprobar" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@solicitud.SolicitudAutorizacionId" />
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Aprobar
+                            </button>
+                        </form>
+
+                        <form asp-action="Rechazar" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@solicitud.SolicitudAutorizacionId" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Rechazar
+                            </button>
+                        </form>
+                    }
+
+                    @if (solicitud.Estado == "Aprobada")
+                    {
+                        <form asp-action="Finalizar" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@solicitud.SolicitudAutorizacionId" />
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                Finalizar uso
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

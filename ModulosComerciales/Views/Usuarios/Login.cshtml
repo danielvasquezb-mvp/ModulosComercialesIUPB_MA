@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<h1>Iniciar sesión</h1>
+
+<form asp-controller="Usuarios" asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input type="email"
+               id="correo"
+               name="correo"
+               class="form-control"
+               autocomplete="username"
+               required />
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password"
+               id="password"
+               name="password"
+               class="form-control"
+               autocomplete="current-password"
+               required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Ingresar
+    </button>
+
+    <a asp-action="Crear" class="btn btn-secondary">
+        Registrarse
+    </a>
+</form>

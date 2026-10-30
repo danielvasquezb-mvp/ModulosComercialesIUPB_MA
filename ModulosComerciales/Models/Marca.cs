@@ -1,4 +1,6 @@
-﻿namespace ModulosComerciales.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace ModulosComerciales.Models
 {
     public class Marca
     {
@@ -10,6 +12,7 @@
 
         public int UsuarioId { get; set; }
 
+        [ValidateNever]
         public Usuario Usuario { get; set; } = null!;
 
         public ICollection<Producto> Productos

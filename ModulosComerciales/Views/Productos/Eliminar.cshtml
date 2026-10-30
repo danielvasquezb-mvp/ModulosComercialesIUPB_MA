@@ -1,0 +1,37 @@
+﻿@model ModulosComerciales.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar producto";
+}
+
+<h1>Eliminar producto</h1>
+
+<div class="alert alert-warning">
+    ¿Estás seguro de que deseas eliminar este producto?
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nombre</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+
+    <dt class="col-sm-3">Descripción</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+
+    <dt class="col-sm-3">Precio</dt>
+    <dd class="col-sm-9">@Model.Precio.ToString("C0", new System.Globalization.CultureInfo("es-CO")) COP</dd>
+
+    <dt class="col-sm-3">Marca</dt>
+    <dd class="col-sm-9">@Model.Marca.Nombre</dd>
+</dl>
+
+<form asp-action="Eliminar" asp-route-id="@Model.ProductoId" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="id" value="@Model.ProductoId" />
+
+    <button type="submit" class="btn btn-danger">
+        Confirmar eliminación
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

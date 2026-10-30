@@ -116,6 +116,9 @@ namespace ModulosComerciales.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("FechaFinalizacion")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("FechaRespuesta")
                         .HasColumnType("datetime2");
 
@@ -234,8 +237,7 @@ namespace ModulosComerciales.Migrations
 
             modelBuilder.Entity("ModulosComerciales.Models.Usuario", b =>
                 {
-                    b.Navigation("Marca")
-                        .IsRequired();
+                    b.Navigation("Marca");
                 });
 #pragma warning restore 612, 618
         }

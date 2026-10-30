@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ModulosComerciales.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Gestión de usuarios";
+}
+
+<h1>Gestión de usuarios</h1>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<p>
+    <a asp-action="Crear" class="btn btn-primary">
+        Registrar estudiante
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.Correo</td>
+                <td>@usuario.Rol</td>
+                <td>
+                    @(usuario.Activo ? "Activo" : "Inactivo")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

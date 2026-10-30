@@ -1,0 +1,61 @@
+﻿@model ModulosComerciales.Models.SolicitudAutorizacion
+
+@{
+    ViewData["Title"] = "Nueva solicitud";
+
+    var marcas = ViewBag.Marcas as
+        List<ModulosComerciales.Models.Marca>;
+
+    var modulos = ViewBag.Modulos as
+        List<ModulosComerciales.Models.Modulo>;
+}
+
+<h1>Solicitar uso de un módulo</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Crear" method="post">
+    <div class="mb-3">
+        <label for="marcaId" class="form-label">Marca</label>
+
+        <select id="marcaId" name="marcaId" class="form-select" required>
+            <option value="">Seleccione una marca</option>
+
+            @if (marcas != null)
+            {
+                foreach (var marca in marcas)
+                {
+                    <option value="@marca.MarcaId">
+                        @marca.Nombre
+                    </option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="moduloId" class="form-label">Módulo abierto</label>
+
+        <select id="moduloId" name="moduloId" class="form-select" required>
+            <option value="">Seleccione un módulo</option>
+
+            @if (modulos != null)
+            {
+                foreach (var modulo in modulos)
+                {
+                    <option value="@modulo.ModuloId">
+                        @modulo.Nombre - @modulo.Ubicacion
+                    </option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Enviar solicitud
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver
+    </a>
+</form>

@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using ModulosComerciales.Data;
 using ModulosComerciales.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ModulosComerciales.Controllers
 {
+    [Authorize]
     public class ModulosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,12 +24,14 @@ namespace ModulosComerciales.Controllers
         }
 
         // Mostrar formulario de registro
+        [Authorize(Roles = "Administrador")]
         public IActionResult Crear()
         {
             return View();
         }
 
         // Registrar un módulo
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(Modulo modulo)
@@ -44,6 +48,7 @@ namespace ModulosComerciales.Controllers
         }
 
         // Mostrar formulario de edición
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Editar(int? id)
         {
             if (id == null)
@@ -62,6 +67,7 @@ namespace ModulosComerciales.Controllers
         }
 
         // Guardar cambios de un módulo
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(int id, Modulo modulo)
@@ -83,6 +89,7 @@ namespace ModulosComerciales.Controllers
         }
 
         // Eliminar un módulo
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Eliminar(int? id)
         {
             if (id == null)
@@ -101,6 +108,7 @@ namespace ModulosComerciales.Controllers
             return View(modulo);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarEliminar(int id)
